@@ -1,0 +1,31 @@
+
+<odoo>
+    <!-- <menuitem id="menu_estate_property_root"
+        name="Real Estate Property"
+        sequence="0"/>
+
+    <menuitem id="menu_estate_property"
+        name="Real Estate Details"
+        parent="menu_estate_property_root"
+        sequence="0"/>
+
+    <menuitem id="menu_properties"
+        name="Real Estate"
+        parent="menu_estate_property"
+        sequence="0"/> -->
+    <record id="real_estate_action" model="ir.actions.act_window">
+        <field name="name">Real Estate</field>
+        <field name="res_model">real.estate.karl</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Define a new Real Estate Property
+          </p><p>
+            Create new real estate
+          </p><p>
+            Some examples: "Bahay na malupet", "Price too high"
+          </p>
+        </field>
+    </record>
+
+</odoo>
