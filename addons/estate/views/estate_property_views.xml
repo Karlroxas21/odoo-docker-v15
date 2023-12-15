@@ -1,18 +1,6 @@
 
 <odoo>
-    <!-- <menuitem id="menu_estate_property_root"
-        name="Real Estate Property"
-        sequence="0"/>
 
-    <menuitem id="menu_estate_property"
-        name="Real Estate Details"
-        parent="menu_estate_property_root"
-        sequence="0"/>
-
-    <menuitem id="menu_properties"
-        name="Real Estate"
-        parent="menu_estate_property"
-        sequence="0"/> -->
     <record id="real_estate_action" model="ir.actions.act_window">
         <field name="name">Real Estate</field>
         <field name="res_model">real.estate.karl</field>
@@ -27,5 +15,100 @@
           </p>
         </field>
     </record>
+
+<!-- Display trees  -->
+    <record id="real_estate_view_tree" model="ir.ui.view">
+      <field name="name">real.estate.karl.tree</field>
+      <field name="model">real.estate.karl</field>
+      <field name="arch" type="xml">
+        <tree string="Channel">
+
+          <field name="name"/>
+          <field name="postcode"/>
+          <field name="bedrooms"/>
+          <field name="living_area"/>
+          <field name="expected_price"/>
+          <field name="selling_price"/>
+          <field name="date_availability"/>
+
+        </tree>
+      </field>
+    </record>
+
+    <record id="real_estate_form_view" model="ir.ui.view">
+        <field name="name">real.estate.karl.form</field>
+        <field name="model">real.estate.karl</field>
+        <field name="arch" type="xml">
+            <form string="Real Estate">
+                <sheet>
+                <h1>Name: <field name="name"/></h1>
+                    <group>
+                        <group>
+                            <field name="postcode"/>
+                        </group>
+                        <group>
+                            <field name="expected_price"/>
+                        </group> 
+                        <group>
+                            <field string="Available from: " name="date_availability"/>
+                        </group> 
+                        <group>
+                            <field name="selling_price"/>
+                        </group> 
+                        <notebook>
+                            <page string="Description">
+                                <group>
+                                  <field name="description"/> 
+                                  <field name="bedrooms"/> 
+                                  <field string="Living Area (sqm)" name="living_area"/> 
+                                  <field name="facades"/> 
+                                  <field name="garage"/> 
+                                  <field name="garden"/> 
+                                  <field string="Garden Area (sqm)" name="garden_area"/>
+                                  <field name="garden_orientation"/>  
+                                  <field name="active"/>
+                                  <field name="state"/>
+                                </group> 
+                            </page>
+                        </notebook>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+<!-- Search -->
+ <record id="real_estate_search" model="ir.ui.view">
+    <field name="name">real.estate.karl.search</field>
+    <field name="model">real.estate.karl</field>
+    <field name="arch" type="xml">
+        <search string="Search">
+            <field name="name"/>
+            <field name="postcode"/>
+            <group expand="1" string="By postcode">
+              <filter string="By postcode" name="postcode" context="{'group_by':'postcode'}"/>
+            </group>
+            <field name="expected_price"/>
+            <field name="selling_price"/>
+            <!-- <filter string="Low Price" name="low_price" domain="[('selling_price', '<', 1000000)]"/> -->
+            <!-- <groupby string="By Bedrooms" name="bedrooms" context='{group_by}': 'bedrooms'/> -->
+            <field name="bedrooms"/>
+            <!-- <seperator/> -->
+            <filter string="More than 1 bedroom" name="bedrooms" domain="[('bedrooms', '>', 1)]"/>
+           
+            <field name="living_area"/>
+            <field name="facades"/>
+            <field name="state"/>
+            <group expand="1" string="By state">
+              <filter string="By state" name="state" context="{'group_by':'state'}"/>
+            </group>
+        </search>
+    </field>
+
+
+
+
+
+</record>
 
 </odoo>
