@@ -5,6 +5,11 @@ class EstateProperty(models.Model):
         _description = "Real State by Karl"
 
         name = fields.Char(require=True)
+        tag_ids = fields.Many2many('real.estate.tag', string="Tag")
+        property_type_id = fields.Many2one('real.estate.type', string="Property Type")
+        buyer = fields.Char(copy=False)
+        sales_person = fields.Char('res.users', default=lambda self: self.env.user.name)
+        offer_ids = fields.One2many('real.estate.offer', 'property_id', string="Offer")
         description = fields.Text()
         postcode = fields.Char()
         date_availability = fields.Date(copy=False, default=lambda self: fields.Date.add(fields.Date.today(), months=3 ))

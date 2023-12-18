@@ -2,7 +2,7 @@
 <odoo>
 
     <record id="real_estate_action" model="ir.actions.act_window">
-        <field name="name">Real Estate</field>
+        <field name="name">Real Estate View</field>
         <field name="res_model">real.estate.karl</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
@@ -24,6 +24,8 @@
         <tree string="Channel">
 
           <field name="name"/>
+          <field name="tag_ids" widget="many2many_tags"/>
+          <field name="property_type_id"/>
           <field name="postcode"/>
           <field name="bedrooms"/>
           <field name="living_area"/>
@@ -42,6 +44,8 @@
             <form string="Real Estate">
                 <sheet>
                 <h1>Name: <field name="name"/></h1>
+                <h3>Property Type: <field name="property_type_id"/> </h3>
+                <h3>Tag: <field name="tag_ids" widget="many2many_tags"/> </h3>
                     <group>
                         <group>
                             <field name="postcode"/>
@@ -70,6 +74,32 @@
                                   <field name="state"/>
                                 </group> 
                             </page>
+
+                            <page string="Offers">
+                              <group>
+                                <field string="Test123" name="offer_ids">
+                                  <tree>
+                                    <field name="price"/>
+                                    <field name="status" />
+                                    <field name="partner_id"/>
+                                  </tree>
+                                  <form>
+                                    <group>
+                                      <field name="price"/>
+                                      <field name="status" />
+                                      <field name="partner_id"/>
+                                    </group>
+                                  </form>
+                                </field>
+                              </group>
+                            </page>
+
+                            <page string="Other info">
+                              <group>
+                                <field string="Buyer" name="buyer"/>
+                                <field string="Sales Person" name="sales_person"/>
+                              </group>
+                            </page>
                         </notebook>
                     </group>
                 </sheet>
@@ -84,6 +114,7 @@
     <field name="arch" type="xml">
         <search string="Search">
             <field name="name"/>
+            <field name="property_type_id"/>
             <field name="postcode"/>
             <group expand="1" string="By postcode">
               <filter string="By postcode" name="postcode" context="{'group_by':'postcode'}"/>
@@ -104,10 +135,6 @@
             </group>
         </search>
     </field>
-
-
-
-
 
 </record>
 
