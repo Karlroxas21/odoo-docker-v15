@@ -77,7 +77,7 @@
 
                             <page string="Offers">
                               <group>
-                                <field string="Test123" name="offer_ids">
+                                <field string="Offers" name="offer_ids">
                                   <tree>
                                     <field name="price"/>
                                     <field name="status" />
