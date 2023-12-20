@@ -24,6 +24,7 @@
         <tree string="Channel">
 
           <field name="name"/>
+          <field name="state"/>
           <field name="best_offer"/>
           <field name="total_area"/>
           <field name="tag_ids" widget="many2many_tags"/>
@@ -44,11 +45,16 @@
         <field name="model">real.estate.karl</field>
         <field name="arch" type="xml">
             <form string="Real Estate">
+            <header>
+              <button name="sold_action" type="object" string="SOLD"></button>
+              <button name="cancel_action" type="object" string="CANCEL"></button>
+            </header>
                 <sheet>
                 <h3>Property Type: <field name="property_type_id"/> </h3>
                 <h3>Tag: <field name="tag_ids" widget="many2many_tags"/> </h3>
                 <group>
                   <group>
+                    <field string="Status: " name="state"/>
                     <field name="name"/>
                     <field name="postcode"/>
                     <field name="expected_price"/>
@@ -74,7 +80,6 @@
                                   <field name="total_area"/>
                                   <field name="garden_orientation"/>  
                                   <field name="active"/>
-                                  <field name="state"/>
                                 </group> 
                             </page>
 
@@ -82,15 +87,17 @@
                                 <field name="offer_ids">
                                   <tree>
                                     <field name="price"/>
-                                    <field name="status" />
                                     <field name="date_deadline"/>
                                     <field name="validity"/>
                                     <field name="partner_id"/>
+                                    <button name="accept_action" string="Accept" type="object" icon="fa-check"/>
+                                    <button name="refuse_action" string="Refuse" type="object" icon="fa-times"/>
+
+                                    <field name="status" />
                                   </tree>
                                   <form>
                                     <group>
                                       <field name="price"/>
-                                      <field name="status" />
                                       <field name="date_deadline"/>
                                       <field name="validity"/>
                                       <field name="partner_id"/>
