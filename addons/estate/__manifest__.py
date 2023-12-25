@@ -1,6 +1,7 @@
 {
     'name': 'Real Estate ni Karl 1',
-    'version': '1',
+    'version': '1.0',
+    'sequence': 1,
     'category': 'Real Estate',
     'summary': 'Real Estate of Karl',
     'description': "",
@@ -15,6 +16,7 @@
         'views/estate_property_type_views.xml',
         'views/estate_property_tag_views.xml',
         'views/estate_property_offer_views.xml',
+        'views/res_users_views.xml',
 
         'views/estate_menus.xml'
     ],

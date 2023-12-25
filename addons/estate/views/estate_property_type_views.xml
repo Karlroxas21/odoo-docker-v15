@@ -1,13 +1,55 @@
 <odoo>
-        <record id="real_estate_type_action" model="ir.actions.act_window">
-        <field name="name">Real Estate Type</field>
-        <field name="res_model">real.estate.type</field>
-        <field name="view_mode">tree,form</field>
-        <field name="help" type="html">
-          <p class="o_view_nocontent_smiling_face">
-            Define a Real Estate Type
-          </p>
-        </field>
+  <record id="real_estate_type_action" model="ir.actions.act_window">
+    <field name="name">Real Estate Type</field>
+    <field name="res_model">real.estate.type</field>
+    <field name="view_mode">tree,form</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+        Define a Real Estate Type
+      </p>
+    </field>
+  </record>
+
+  <!-- Tree -->
+  <record id="real_estate_type_tree" model="ir.ui.view">
+    <field name="name">real.estate.type.tree</field>
+    <field name="model">real.estate.type</field>
+    <field name="arch" type="xml">
+      <tree>
+        <field name="name"/>
+      </tree>
+    </field>
+  </record>
+
+    <record id="property_type_form_view" model="ir.ui.view">
+      <field name="name">real.estate.type.form</field>
+      <field name="model">real.estate.type</field>
+      <field name="arch" type="xml">
+        <form string="Property Type House"> 
+        <header class="oe_right">
+          <button name="%(estate.real_estate_offer_action)d"  
+          string="Offers" type="action" 
+          class="oe_stat_button" icon="fa-money"/>   
+          <field name="offer_count"/>
+        </header>
+        <h1>
+          <field name="name"/>
+        </h1>
+        <notebook>
+          <page string="Properties">
+            <field name="sequence" widget="handle"/>
+            <field name="property_ids">
+              <tree string="Properties">
+                <field name="name"/>
+                <field name="expected_price"/>
+                <field name="state"/>
+              </tree>
+            </field>
+          </page>
+        </notebook>
+          
+        </form>
+      </field>
     </record>
 
 </odoo>

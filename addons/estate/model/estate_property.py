@@ -1,28 +1,29 @@
 from odoo import fields, models, api, exceptions
 from odoo.tools import float_utils
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 
 class EstateProperty(models.Model):
         _name = "real.estate.karl"
         _description = "Real State by Karl"
+        # Set Order-Descending ID
+        _order = 'id desc'
 
         name = fields.Char(require=True)
         tag_ids = fields.Many2many('real.estate.tag', string="Tag")
         property_type_id = fields.Many2one('real.estate.type', string="Property Type")
         buyer = fields.Char(copy=False)
-        sales_person = fields.Char('res.users', default=lambda self: self.env.user.name)
+        sales_person = fields.Many2one('res.users', default=lambda self: self.env.user)
         offer_ids = fields.One2many('real.estate.offer', 'property_id', string="Offer")
         description = fields.Text()
         postcode = fields.Char()
-        date_availability = fields.Date(copy=False, default=lambda self: fields.Date.add(fields.Date.today(), months=3 ))
+        date_availability = fields.Date(copy=False, months=3, default=lambda self: fields.Date.add(fields.Date.today(), months=3 ))
         expected_price = fields.Float(require=True)
         selling_price = fields.Float(readonly=True, copy=False)
         best_offer = fields.Integer(compute="_compute_highest_offer")
         active = fields.Boolean(default=False)
         state = fields.Selection(
                 [('new', 'New'),
-                ('offer', 'Offer'),
-                ('received', 'Received'),
+                ('offer received', 'Offer Received'),
                 ('offer accepted', 'Offer Accepted'),
                 ('sold', 'Sold'),
                 ('canceled', 'Canceled')],
@@ -39,7 +40,7 @@ class EstateProperty(models.Model):
         garden_orientation = fields.Selection(
                 [('north', 'North'), ('east', 'East'), ('south', 'South'), ('west', 'West')],
                 string="Garden facing orientation")
-        
+  
         #SQL Constrataints
         _sql_constraints = [
                 ('check_expected_price', 'CHECK(expected_price >= 0)', "Expected price must be strictly positive"),
@@ -91,4 +92,12 @@ class EstateProperty(models.Model):
                         if record.selling_price and record.selling_price < 0.9 * record.expected_price:
                                 raise exceptions.ValidationError("Selling price cannot be lower than 90% of the expected price.")
         
-       
+#        Prevent deletion of property that is not new and canceled
+        @api.ondelete(at_uninstall=False)
+        def _unlink_except_not_new_and_canceled(self):
+                for record in self:
+                        if record.state not in ['new', 'canceled']:
+                                raise UserError("You cannot delete a property which is in %s state." % (record.state,))
+                
+                return super(EstateProperty, self)
+ 

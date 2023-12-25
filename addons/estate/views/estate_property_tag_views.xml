@@ -1,5 +1,5 @@
 <odoo>
-        <record id="real_estate_tag_action" model="ir.actions.act_window">
+    <record id="real_estate_tag_action" model="ir.actions.act_window">
         <field name="name">Real Estate Tag</field>
         <field name="res_model">real.estate.tag</field>
         <field name="view_mode">tree,form</field>
@@ -8,6 +8,16 @@
             Define a Real Estate Tag
           </p>
         </field>
+    </record>
+
+    <record id="real_estate_tag_tree" model="ir.ui.view">
+      <field name="name">real.estate.tag.tree</field>
+      <field name="model">real.estate.tag</field>
+      <field name="arch" type="xml">
+        <tree string="Channel" editable="bottom">
+          <field name="name"/>
+        </tree>
+      </field>
     </record>
 
 </odoo>
