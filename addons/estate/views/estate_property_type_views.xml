@@ -26,12 +26,11 @@
       <field name="model">real.estate.type</field>
       <field name="arch" type="xml">
         <form string="Property Type House"> 
-        <header class="oe_right">
-          <button name="%(estate.real_estate_offer_action)d"  
-          string="Offers" type="action" 
-          class="oe_stat_button" icon="fa-money"/>   
-          <field name="offer_count"/>
-        </header>
+            <div class="oe_button_box" name="button_box">
+              <button name="%(estate.real_estate_offer_action)d" type="action" class="oe_stat_button" icon="fa-money">
+                  <field string="Offers" name="offer_count" widget="statinfo"/>
+              </button>
+            </div>
         <h1>
           <field name="name"/>
         </h1>
