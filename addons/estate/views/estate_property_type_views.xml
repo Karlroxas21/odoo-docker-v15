@@ -21,16 +21,16 @@
     </field>
   </record>
 
-    <record id="property_type_form_view" model="ir.ui.view">
-      <field name="name">real.estate.type.form</field>
-      <field name="model">real.estate.type</field>
-      <field name="arch" type="xml">
-        <form string="Property Type House"> 
-            <div class="oe_button_box" name="button_box">
-              <button name="%(estate.real_estate_offer_action)d" type="action" class="oe_stat_button" icon="fa-money">
-                  <field string="Offers" name="offer_count" widget="statinfo"/>
-              </button>
-            </div>
+  <record id="property_type_form_view" model="ir.ui.view">
+    <field name="name">real.estate.type.form</field>
+    <field name="model">real.estate.type</field>
+    <field name="arch" type="xml">
+      <form string="Property Type House">
+        <div class="oe_button_box" name="button_box">
+          <button name="%(estate.real_estate_offer_action)d" type="action" class="oe_stat_button" icon="fa-money">
+            <field string="Offers" name="offer_count" widget="statinfo"/>
+          </button>
+        </div>
         <h1>
           <field name="name"/>
         </h1>
@@ -46,9 +46,9 @@
             </field>
           </page>
         </notebook>
-          
-        </form>
-      </field>
-    </record>
+
+      </form>
+    </field>
+  </record>
 
 </odoo>
