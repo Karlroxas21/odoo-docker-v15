@@ -4,7 +4,7 @@
     <record id="real_estate_action" model="ir.actions.act_window">
         <field name="name">Real Estate View</field>
         <field name="res_model">real.estate.karl</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">kanban,form</field>
         <field name="context"> {"search_default_available": 1}</field>
         <field name="help" type="html">
           <p class="o_view_nocontent_smiling_face">
@@ -18,41 +18,29 @@
     </record>
 
 <!-- Display trees  -->
-    <record id="real_estate_view_tree" model="ir.ui.view">
-      <field name="name">real.estate.karl.tree</field>
-      <field name="model">real.estate.karl</field>
-      <field name="arch" type="xml">
-        <tree string="Channel"
-          decoration-muted="state=='sold'"
-          decoration-bf="state=='offer accepted'"
-          decoration-success="state=='offer accepted'"
-        >
-          <field name="name"/>
-          <field name="property_type_id"/>
-          <field name="postcode"/>
-          <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
-          <field name="bedrooms"/>
-          <field name="living_area" string="Living Area (sqm)"/>
-          <field name="expected_price"/>
-          <field name="selling_price"/>
-          <field name="state" invisible="1"/>
-
-
-          <!-- <field name="name"/>
-          <field name="state"/>
-          <field name="best_offer"/>
-          <field name="total_area"/>
-          <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
-          <field name="property_type_id"/>
-          <field name="postcode"/>
-          <field name="bedrooms"/>
-          <field name="living_area"/>
-          <field name="expected_price"/>
-          <field name="selling_price"/>
-          <field name="date_availability" optional="hide" /> -->
-
-        </tree>
-      </field>
+    <record id="view_kanban_real_estate" model="ir.ui.view">
+    <field name="name">real.estate.karl.kanban</field>
+    <field name="model">real.estate.karl</field>
+    <field name="arch" type="xml">
+        <kanban default_group_by="property_type_id" records_draggable="0">
+        <field name="state"/>
+            <templates>
+                <t t-name="kanban-box">
+                    <div class="oe_kanban_global_click">
+                        <h3> <field name="name"/> </h3>
+                        <p>Expected Price: <field name="expected_price"/> </p>
+                        <div t-if="record.state.raw_value == 'offer received'">
+                          <p>Best Offer: <field name="best_offer" string="Best Offer: "/> </p>
+                        </div>
+                        <div t-if="record.state.raw_value == 'offer accepted'">
+                          <p>Selling Price: <field name="selling_price" string="Selling Price: "/> </p>
+                        </div>
+                        <field name="tag_ids" widget="many2many_tags"/>
+                    </div>
+                </t>
+            </templates>
+        </kanban>
+    </field>
     </record>
 
     <record id="real_estate_form_view" model="ir.ui.view">
